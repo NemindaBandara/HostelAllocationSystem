@@ -1,13 +1,16 @@
 // src/components/Sidebar.jsx
 import React from 'react';
-import UserAvatar from './UserAvatar'; // Make sure to import UserAvatar
+import { Link, useLocation } from 'react-router-dom'; // Import Link and useLocation
+import UserAvatar from './UserAvatar';
 
 // Sidebar component: Displays the logo, system title, and navigation icons.
 const Sidebar = () => {
+  const location = useLocation(); // Hook to get current route location
+
+  // Helper function to determine if a link is active
+  const isActive = (path) => location.pathname === path;
+
   return (
-    // Outer container for the sidebar.
-    // hidden on small screens, flex on medium screens and up.
-    // Fixed position, full height, dark background, padding, and shadow.
     <div className="hidden md:flex fixed top-0 left-0 h-full w-20 bg-[#282828] text-gray-400 p-4 shadow-lg flex-col items-center">
       {/* Logo/System Icon */}
       <div className="mb-8 mt-4">
@@ -17,22 +20,23 @@ const Sidebar = () => {
       </div>
 
       {/* Navigation Items */}
-      <div className="flex flex-col items-center text-xs mb-6 cursor-pointer hover:text-white transition-colors duration-200">
+      {/* Use Link component for navigation. Add active styles based on current path. */}
+      <Link to="/" className={`flex flex-col items-center text-xs mb-6 cursor-pointer transition-colors duration-200 ${isActive('/') ? 'text-white' : 'hover:text-white'}`}>
         <i className="fas fa-chart-line text-xl mb-1"></i>
         <span>Dashboard</span>
-      </div>
-      <div className="flex flex-col items-center text-xs mb-6 cursor-pointer hover:text-white transition-colors duration-200">
+      </Link>
+      <Link to="/hostels" className={`flex flex-col items-center text-xs mb-6 cursor-pointer transition-colors duration-200 ${isActive('/hostels') ? 'text-white' : 'hover:text-white'}`}>
         <i className="fas fa-building text-xl mb-1"></i>
         <span>Hostels</span>
-      </div>
-      <div className="flex flex-col items-center text-xs mb-6 cursor-pointer hover:text-white transition-colors duration-200">
+      </Link>
+      <Link to="/students" className={`flex flex-col items-center text-xs mb-6 cursor-pointer transition-colors duration-200 ${isActive('/students') ? 'text-white' : 'hover:text-white'}`}>
         <i className="fas fa-user-graduate text-xl mb-1"></i>
         <span>Students</span>
-      </div>
-      <div className="flex flex-col items-center text-xs mb-6 cursor-pointer hover:text-white transition-colors duration-200">
+      </Link>
+      <Link to="/allocations" className={`flex flex-col items-center text-xs mb-6 cursor-pointer transition-colors duration-200 ${isActive('/allocations') ? 'text-white' : 'hover:text-white'}`}>
         <i className="fas fa-handshake text-xl mb-1"></i>
         <span>Allocations</span>
-      </div>
+      </Link>
 
       {/* User profile at the bottom */}
       <div className="mt-auto mb-4">
